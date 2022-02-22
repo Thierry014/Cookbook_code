@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+    <!-- 1. act_window -->
+    <record id='library_book_action' model='ir.actions.act_window'>
+        <field name="name">Library Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <!-- 2. menu item -->
+    <!-- menu icon in main UI -->
+    <menuitem name="My Library" id="library_base_menu" />
+    <!-- menuitem in module -->
+    <menuitem name="Books" id="library_book_menu"  parent="library_base_menu">
+        <menuitem name="B1" id="library_book_submenu_1" action="library_book_action"/>
+        <menuitem name="B2" id="library_book_submenu_2" action="library_book_action"/>
+        <menuitem name="B3" id="library_book_submenu_3" action="library_book_action"/>
+    </menuitem>
+
+    <!-- 3. detail view (List, Tree, Search) -->
+    <record id="library_book_view_form" model="ir.ui.view">
+        <field name="name">Library Book Form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="author_ids" widget="many2many_tags"/>
+                            <field name="publisher_id"/>
+                        </group>
+                        <group>
+                            <field name="date_release"/>
+                            <field name="date_borrowed"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="library_book_view_tree" model="ir.ui.view">
+        <field name="name">Library Book List</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_release"/>
+                <field name="date_borrowed"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="library_book_view_search" model="ir.ui.view">
+        <field name="name">Library Book Search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="No Authors" name="without_author" domain="[('author_ids','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>
