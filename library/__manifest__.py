@@ -8,6 +8,7 @@
     'depends': ['base'],
 
     'data': [
+        'security/group.xml',
         'security/ir.model.access.csv',
         'views/library_book.xml',
     ],

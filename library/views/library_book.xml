@@ -33,6 +33,8 @@
                         <group>
                             <field name="date_release"/>
                             <field name="date_borrowed"/>
+                            <field name="price_cn"/>
+                            <field name="price_au"/>
                         </group>
                     </group>
                 </sheet>
