@@ -23,12 +23,19 @@
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="change_state" type="object" string="State" class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="name"/>
                             <field name="author_ids" widget="many2many_tags"/>
                             <field name="publisher_id"/>
+                            <field name="owner1"/>
+                            <field name="owner2"/>
+                            <field name="book_is_ava"/>
                         </group>
                         <group>
                             <field name="date_release"/>

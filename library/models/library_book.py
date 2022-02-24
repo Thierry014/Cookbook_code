@@ -18,7 +18,12 @@ class LibraryBook(models.Model):
     price_cn = fields.Integer('Price in CN') 
     price_au = fields.Integer('Price in AU', compute='_compute_au_price', inverse = '_inverse_au_price') 
 
-    
+    owner1 = fields.Many2one('res.partner', string="Owner with email", domain=[('email','!=',False)])
+    owner2 = fields.Many2one('res.partner', string="Owner without mobile", domain=[('mobile','!=',False)] )
+
+    state = fields.Selection([('onhand','On Hand'),('borrowed','Borrowed'),('lost','Lost')], default='onhand')
+    book_is_ava = fields.Boolean('Book available', default = True)
+
     def name_get(self):
         result = []
         for record in self:
@@ -35,6 +40,14 @@ class LibraryBook(models.Model):
     
     def _inverse_au_price(self):
         ...
+
+    def change_state(self):
+        if self.state == 'borrowed':
+            self.state = 'onhand'
+        else:
+            self.state = 'borrowed'
+
+
 
 
 
