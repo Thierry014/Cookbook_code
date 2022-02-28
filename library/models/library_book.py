@@ -48,6 +48,10 @@ class LibraryBook(models.Model):
             self.state = 'borrowed'
 
 
+    def read_group_test(self):
+        result = self.read_group([('price_cn', '!=', False)],['publisher_id'],['publisher_id'])
+        print(f'>>>{result}')
+
 
 
 

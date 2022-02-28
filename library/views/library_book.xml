@@ -25,6 +25,7 @@
             <form>
                 <header>
                     <button name="change_state" type="object" string="State" class="oe_highlight"/>
+                    <button name="read_group_test" type="object" string="Price" class="oe_highlight"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
