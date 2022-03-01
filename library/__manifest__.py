@@ -11,10 +11,11 @@
         'security/group.xml',
         'security/ir.model.access.csv',
         'views/library_book.xml',
+        'views/library_book_rent.xml',
+        # 'data/data.xml'
     ],
     # data files containing optionally loaded demonstration data
     'demo': [
-        'demo/demo_data.xml',
     ],
 
     # auto_install

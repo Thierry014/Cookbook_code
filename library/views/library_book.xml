@@ -26,6 +26,9 @@
                 <header>
                     <button name="change_state" type="object" string="State" class="oe_highlight"/>
                     <button name="read_group_test" type="object" string="Price" class="oe_highlight"/>
+                    <button name="rent_out" type="object" string="Rent" class="oe_highlight"/>
+                    <!-- <button name="add_context" type="object" string="Add" class="oe_highlight"/> -->
+                    <button name="make_lost" type="object" string="LOst" class="oe_highlight"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

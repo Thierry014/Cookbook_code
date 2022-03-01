@@ -1,4 +1,6 @@
-from odoo import models, fields 
+from odoo import models, fields, api
+from odoo.exceptions import UserError, ValidationError
+
 
 class LibraryBook(models.Model): 
     _name = 'library.book' 
@@ -16,7 +18,7 @@ class LibraryBook(models.Model):
     author_ids = fields.Many2many('res.partner',string='Authors')
     publisher_id = fields.Many2one('res.partner', string='Publisher')
     price_cn = fields.Integer('Price in CN') 
-    price_au = fields.Integer('Price in AU', compute='_compute_au_price', inverse = '_inverse_au_price') 
+    price_au = fields.Integer('Price in AU', compute='_compute_au_price', inverse = '_inverse_au_price', default=123) 
 
     owner1 = fields.Many2one('res.partner', string="Owner with email", domain=[('email','!=',False)])
     owner2 = fields.Many2one('res.partner', string="Owner without mobile", domain=[('mobile','!=',False)] )
@@ -31,6 +33,7 @@ class LibraryBook(models.Model):
             result.append((record.id, rec_name))
         return result
     
+    @api.depends('price_cn')
     def _compute_au_price(self):
         for book in self:
             if book.price_cn:
@@ -52,8 +55,28 @@ class LibraryBook(models.Model):
         result = self.read_group([('price_cn', '!=', False)],['publisher_id'],['publisher_id'])
         print(f'>>>{result}')
 
+    def make_borrowed(self):
+        self.state = 'borrowed'
 
+    def make_available(self):
+        self.state = 'onhand'
 
+    def rent_out(self):
+        if self.state != 'onhand':
+            raise UserError('Book is not available to rent')
+        
+        # create rent record
+        rent_as_superuser = self.env['library.book.rent'].sudo()
+        rent_as_superuser.create({
+            'book_id': self.id,
+            'borrower_id': self.env.user.partner_id.id,
+        })
+
+    def make_lost(self):
+        if self.env.context.get('have_ctx'):
+            print(f'>>>>>>>Make it lost{self.env.context}')
+        else:
+            print(f">>>>>Can't make it lost {self.env.context}")
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'

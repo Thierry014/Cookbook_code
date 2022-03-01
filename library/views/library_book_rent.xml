@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+    <!-- 1. act_window -->
+    <record id='library_book_rent_action' model='ir.actions.act_window'>
+        <field name="name">Rent Books</field>
+        <field name="res_model">library.book.rent</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+
+    <!-- menu -->
+    <menuitem name="Rent" id="library_book_rent_menu"  parent="library_base_menu" action="library_book_rent_action">
+    </menuitem>
+
+    <!-- form view -->
+    <record id="library_book_rent_view_form" model="ir.ui.view">
+        <field name="name">Library Rent Form</field>
+        <field name="model">library.book.rent</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="book_return" string="Return the Book" type="object"/>
+                    <button name="add_context" string="add ctx" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="book_id" domain="[('state', '=', 'available')]"/>
+                            <field name="borrower_id"/>
+                        </group>
+                        <group>
+                            <field name="rent_date"/>
+                            <field name="return_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
