@@ -13,6 +13,8 @@
         'views/library_book.xml',
         'views/library_book_rent.xml',
         # 'data/data.xml'
+        'wizard/rent_book_wiz.xml',
+        'wizard/return_book_wiz.xml',
     ],
     # data files containing optionally loaded demonstration data
     'demo': [

@@ -75,8 +75,10 @@ class LibraryBook(models.Model):
     def make_lost(self):
         if self.env.context.get('have_ctx'):
             print(f'>>>>>>>Make it lost{self.env.context}')
+            self.state = 'lost'
         else:
             print(f">>>>>Can't make it lost {self.env.context}")
+            raise UserError('No lost')
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
