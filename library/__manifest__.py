@@ -12,6 +12,7 @@
         'security/ir.model.access.csv',
         'views/library_book.xml',
         'views/library_book_rent.xml',
+        'views/res_conf.xml',
         # 'data/data.xml'
         'wizard/rent_book_wiz.xml',
         'wizard/return_book_wiz.xml',
