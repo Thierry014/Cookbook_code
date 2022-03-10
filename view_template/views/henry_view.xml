@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+    <!-- 1. act_window -->
+    <record id='henry_view_action' model='ir.actions.act_window'>
+        <field name="name">Henry View Template</field>
+        <field name="res_model">henry.view</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+
+    <!-- 3. Normal view (no field available)Vs customized view -->
+
+    <record id="henry_view_view_list" model="ir.ui.view">
+        <field name="name">Normal hj list cust</field>
+        <field name="model">henry.view</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="view_text"/>
+                <field name="view_number"/>
+                <field name="view_bool"/>
+                <field name="view_sel"/>
+            </tree>
+        </field>
+    </record>
+
+<!-- widget, form view basics -->
+    <record id="henry_view_view_form" model="ir.ui.view">
+        <field name="name">Normal hj form cust</field>
+        <field name="model">henry.view</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="bnv_in_view" type="object" string="Btn"/>
+                    <field name="view_sel" widget='statusbar'/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="view_text"/>
+                        <field name="view_number"/>
+                        <field name="view_bool"/>
+                        <!-- button to form view via action record id -->
+                        <!-- <button type="action" name="%(base.action_partner_category_form)d" string="Open partner categories" /> -->
+                        <button type="action" name="%(henry_view_action)d" string="Open partner categories" class="btn-primary"/>
+                    </group>
+
+                    <notebook>
+                    <page string="Tab 1">
+                        <group>
+                            <field name="name"  class="oe_edit_only"/>
+                        </group>
+                    </page>
+                    <page string="Tab 2">
+                        <group>
+                            <field name="view_text" class="oe_read_only"/>
+                        </group>
+                    </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    
+    
+    <!-- 2. menu item -->
+    <menuitem name="My view" id="henry_view_base_menu" />
+    <!-- menuitem in module -->
+    <menuitem name="Views" id="henry_view_menu"  parent="henry_view_base_menu">
+        <menuitem name="V1" id="henry_view_submenu_1" action="henry_view_action"/>
+        <menuitem name="V2" id="henry_view_submenu_2" action="henry_view_action"/>
+        <menuitem name="V3" id="henry_view_submenu_3" action="henry_view_action"/>
+    </menuitem>
+
+</odoo>
